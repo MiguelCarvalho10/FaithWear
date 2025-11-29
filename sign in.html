@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📝 FaithWear - Cadastro</title>
+    <link rel="stylesheet" href="styles/signin.css"> 
+</head>
+<body>
+
+    <h2 id="bemvindo"></h2>
+
+    <div class="login-container">
+        
+        <div class="login-box">
+            <h1 class="logo-login">FaithWear</h1>
+            <h2>Crie sua Conta de Fé!</h2>
+            <p>Junte-se a nós para receber ofertas exclusivas e novidades.</p>
+
+            <!-- FORM DE CADASTRO -->
+            <form class="cadastro-form" id="form-cadastro">
+                
+                <div class="input-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" name="nome" placeholder="Seu nome e sobrenome" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="email_cadastro">E-mail</label>
+                    <input type="email" id="email_cadastro" name="email" placeholder="seu.melhor@email.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="senha_cadastro">Criar Senha</label>
+                    <input type="password" id="senha_cadastro" name="senha" placeholder="Mínimo 6 caracteres" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="confirmar_senha">Confirmar Senha</label>
+                    <input type="password" id="confirmar_senha" name="confirmar_senha" placeholder="Repita a senha" required>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="newsletter" name="newsletter">
+                    <label for="newsletter">Desejo receber novidades e ofertas por e-mail.</label>
+                </div>
+
+                <button type="submit" class="btn-login" id="btn-cadastrar">
+                    Cadastrar e Começar a Comprar
+                </button>
+            </form>
+
+            <div class="separator">
+                <span>ou</span>
+            </div>
+
+            <p class="signup-call">
+                Já tem uma conta? 
+                <a href="login.html" class="btn-secondary">Fazer Login</a>
+            </p>
+        </div>
+
+    </div>
+
+</body>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/auth.js"></script>
+
+</html>

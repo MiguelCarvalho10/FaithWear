@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔒 FaithWear - Login</title>
+    <link rel="stylesheet" href="styles/login.css">
+</head>
+<body>
+
+    <div class="login-container">
+        
+        <div class="login-box">
+            <h1 class="logo-login">FaithWear</h1>
+            <h2>Bem-vindo de Volta!</h2>
+            <p>Entre na sua conta e continue vestindo a sua fé.</p>
+
+            <form class="login-form">
+                
+                <div class="input-group">
+                    <label for="email">E-mail ou Usuário</label>
+                    <input type="text" id="email" name="email" placeholder="seu.email@exemplo.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" placeholder="********" required>
+                    <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                </div>
+
+                <button type="submit" class="btn-login">
+                    Entrar
+                </button>
+            </form>
+
+            <div class="separator">
+                <span>ou</span>
+            </div>
+
+            <p class="signup-call">
+                Ainda não tem uma conta? 
+                <a href="sign in.html" class="btn-secondary">Criar uma Conta</a>
+            </p>
+        </div>
+
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

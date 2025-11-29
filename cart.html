@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho</title>
+    <link rel="stylesheet" href="../styles/cart.css"> <!-- Se não tiver CSS, pode remover -->
+
+</head>
+<body>
+
+<div class="cart-container">
+    <h1>Seu Carrinho</h1>
+
+    <div id="cart-items"></div>
+
+    <div class="total" id="total-price">Total: R$ 0,00</div>
+
+    <div class="buttons">
+        <button class="clear" onclick="limparCarrinho()">Limpar Carrinho</button>
+        <button class="finish" onclick="finalizarCompra()">Finalizar Compra</button>
+    </div>
+</div>
+
+<script>
+    // ----------- FUNÇÃO PARA BUSCAR O CARRINHO DO LOCALSTORAGE -----------
+    function getCarrinho() {
+        return JSON.parse(localStorage.getItem("carrinho")) || [];
+    }
+
+    // ----------- SALVA ALTERAÇÕES NO LOCALSTORAGE -----------
+    function salvarCarrinho(carrinho) {
+        localStorage.setItem("carrinho", JSON.stringify(carrinho));
+    }
+
+    // ----------- RENDERIZA OS ITENS NO HTML -----------
+    function atualizarCarrinho() {
+        const carrinho = getCarrinho();
+        const container = document.getElementById("cart-items");
+        const totalElement = document.getElementById("total-price");
+
+        container.innerHTML = "";
+
+        let total = 0;
+
+        carrinho.forEach((item, index) => {
+            total += item.preco * item.quantidade;
+
+            container.innerHTML += `
+                <div class="cart-item">
+                    <img src="${item.imagem}" alt="${item.nome}">
+                    <div class="cart-info">
+                        <strong>${item.nome}</strong><br>
+                        Tamanho: ${item.tamanho}<br>
+                        Quantidade: ${item.quantidade}<br>
+                        Preço: R$ ${item.preco.toFixed(2)}
+                    </div>
+
+                    <div class="cart-actions">
+                        <button onclick="removerItem(${index})">Remover</button>
+                    </div>
+                </div>
+            `;
+        });
+
+        totalElement.innerText = "Total: R$ " + total.toFixed(2);
+    }
+
+    // ----------- REMOVE ITEM INDIVIDUAL -----------
+    function removerItem(index) {
+        const carrinho = getCarrinho();
+        carrinho.splice(index, 1);
+        salvarCarrinho(carrinho);
+        atualizarCarrinho();
+    }
+
+    // ----------- LIMPAR TUDO -----------
+    function limparCarrinho() {
+        localStorage.removeItem("carrinho");
+        atualizarCarrinho();
+    }
+
+    // ----------- FINALIZAR COMPRA -----------
+    function finalizarCompra() {
+        alert("Compra finalizada! (simulação)");
+        limparCarrinho();
+    }
+
+    // ----------- RENDER INICIAL -----------
+    atualizarCarrinho();
+</script>
+
+</body>
+</html>

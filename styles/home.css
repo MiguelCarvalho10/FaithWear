@@ -1,0 +1,299 @@
+/* Variáveis para cores (Melhor prática para Dark Mode) */
+:root {
+    --color-primary: #000000;      /* Preto principal */
+    --color-secondary: #1a1a1a;    /* Cinza escuro para seções/cards */
+    --color-text-light: #ffffff;   /* Branco para o texto principal */
+    --color-text-medium: #cccccc;  /* Cinza claro para texto secundário */
+    --color-accent: #b388ff;       /* Um roxo/lavanda sutil para acentuar (sofisticado) */
+    --color-border: #333333;       /* Borda sutil para elementos */
+}
+
+/* --------------------
+    Reset e Base
+   -------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Fonte limpa e profissional */
+    line-height: 1.6;
+    background-color: var(--color-primary); 
+    color: var(--color-text-light); 
+}
+
+a {
+    color: var(--color-text-light);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: var(--color-accent); /* Efeito de hover profissional */
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px; /* Largura máxima para limitar a expansão em telas grandes */
+    margin: 0 auto;
+    padding: 20px 0; /* Espaçamento vertical consistente */
+}
+
+ul {
+    list-style: none;
+}
+
+/* --------------------
+    Header e Navegação
+   -------------------- */
+.main-header {
+    background-color: var(--color-primary); 
+    border-bottom: 1px solid var(--color-border); /* Linha fina e elegante */
+    padding: 15px 0; /* Espaçamento refinado */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0; /* O container já tem o padding */
+}
+
+.logo {
+    font-size: 1.8rem; 
+    font-weight: 700;
+    letter-spacing: 1px; /* Espaçamento sutil para o logo */
+}
+
+nav ul {
+    display: flex;
+    gap: 30px; /* Espaçamento maior entre os itens de navegação */
+}
+
+nav a {
+    font-size: 1rem;
+    padding: 5px 0;
+    position: relative;
+    font-weight: 500;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--color-accent);
+    transition: width 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%; /* Efeito de linha sofisticado no hover */
+}
+
+.cart-icon {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 10px 15px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+}
+
+.cart-icon:hover {
+    color: var(--color-accent); 
+    border-color: var(--color-accent); 
+}
+
+/* --------------------
+    Seção Hero (Intro)
+   -------------------- */
+.hero-section {
+    background-color: var(--color-secondary); 
+    padding: 100px 0; /* Espaçamento grande para destaque profissional */
+    text-align: center;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.hero-section h2 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.hero-section p {
+    font-size: 1.15rem;
+    color: var(--color-text-medium);
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --------------------
+    Botões (BTN)
+   -------------------- */
+.btn {
+    display: inline-block;
+    padding: 12px 25px; /* Padding generoso */
+    margin-top: 10px;
+    border: 1px solid var(--color-accent);
+    background-color: transparent;
+    color: var(--color-accent); 
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    border-radius: 2px; /* Bordas retas ou levemente arredondadas são mais profissionais */
+    transition: all 0.4s ease-in-out; 
+}
+
+.cta-button {
+    background-color: var(--color-accent); 
+    color: var(--color-text-light); 
+    border: 1px solid var(--color-accent); 
+}
+
+.btn:hover {
+    background-color: var(--color-accent);
+    color: var(--color-text-light); 
+    box-shadow: 0 0 15px rgba(179, 136, 255, 0.4); /* Sombra sutil no hover */
+}
+
+.cta-button:hover {
+    background-color: #9c6cff; /* Variação de cor sutil */
+    border-color: #9c6cff;
+}
+
+.add-to-cart {
+    background-color: var(--color-primary);
+    color: var(--color-text-medium);
+    border-color: var(--color-border);
+    margin-left: 10px;
+}
+
+.add-to-cart:hover {
+    background-color: var(--color-accent);
+    color: var(--color-text-light);
+    border-color: var(--color-accent);
+}
+
+/* --------------------
+    Seção de Produtos
+   -------------------- */
+.products-section {
+    padding: 60px 0; /* Espaçamento vertical */
+}
+
+.products-section h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 50px; /* Bom espaçamento após o título */
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px; /* Espaçamento consistente entre os cards */
+}
+
+.product-card {
+    background-color: var(--color-secondary); /* Cinza escuro para contraste */
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px); /* Efeito 3D sutil */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Sombra mais profunda */
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border-radius: 2px;
+}
+
+.product-card h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--color-text-light);
+}
+
+.product-description {
+    color: var(--color-text-medium);
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-accent); /* Preço em destaque com cor de acento */
+    margin-bottom: 20px;
+}
+
+/* --------------------
+    Footer
+   -------------------- */
+.main-footer {
+    background-color: var(--color-secondary); 
+    border-top: 1px solid var(--color-border);
+    padding: 40px 0;
+    color: var(--color-text-medium);
+}
+
+.main-footer .container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Para telas menores */
+    gap: 30px;
+}
+
+.footer-info, .footer-links, .footer-social {
+    flex-basis: 30%; /* Distribuição de espaço */
+    min-width: 200px; /* Garante que não fiquem muito estreitos */
+}
+
+.main-footer h4 {
+    color: var(--color-text-light);
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.main-footer p {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.footer-links ul {
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 8px;
+}
+
+.footer-links a {
+    color: var(--color-text-medium);
+}
+
+.footer-links a:hover {
+    color: var(--color-accent);
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaithWear - Moda Cristã e Sofisticação</title> 
+    <link rel="stylesheet" href="styles/home.css">
+
+    <style>
+        .btn {
+            transition: 0.4s ease-in-out; /* Transição levemente mais longa e sofisticada */
+        }
+        /* As regras de hover serão movidas ou replicadas no CSS externo para melhor organização */
+        
+        .cart-icon {
+            cursor: pointer;
+            transition: 0.4s ease-in-out;
+            font-weight: 500; /* Adicionado peso para visualização */
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <h1 class="logo">FaithWear</h1>
+            <nav>
+                <ul>
+                    <li><a href="#intro">Início</a></li>
+                    <li><a href="#produtos">Camisetas</a></li>
+                    <li><a href="#produtos">Lançamentos</a></li>
+                    <li><a href="#footer">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="cart-icon" onclick="window.location.href='cart.html'">Carrinho (0)</div>
+        </div>
+    </header>
+
+    <section id="intro" class="hero-section">
+        <div class="container">
+            <h2>Vista a sua Fé com Estilo.</h2>
+            <p>Descubra nossa coleção exclusiva de camisetas com mensagens de esperança, amor e inspiração espiritual.</p>
+            <a href="#produtos" class="cta-button btn">Ver Nossa Coleção</a>
+        </div>
+    </section>
+
+    <main id="produtos" class="products-section container">
+        <h3>Nossas Camisetas Mais Populares</h3> 
+        <div class="product-grid">
+            
+            <div class="product-card">
+                <img src="images/Camiseta cruzadas.webp" alt="Camiseta Cruzadas" class="product-image">
+                <h4>Cruzadas</h4>
+                <p class="product-description">Sobre os Grandes cavaleiros Templários</p>
+                <p class="product-price">R$ 59,90</p>
+                <button class="btn" onclick="window.location.href='products/Camiseta Cruzadas.html'">Ver Produto</button>
+                <button class="btn add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="images/Camiseta Sanctus.jpg" alt="Camiseta Cordeiro" class="product-image">
+                <h4>Sanctus</h4>
+                <p class="product-description">Camiseta que nos relembra o Cordeiro Imolado</p>
+                <p class="product-price">R$ 69,90</p>
+                <button class="btn" onclick="window.location.href='products/Camiseta Sanctus.html'">Ver Produto</button>
+                <button class="btn add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="images/Petrus Sanctus.jpg" alt="Camiseta Petrus" class="product-image">
+                <h4>Petrus</h4>
+                <p class="product-description">Para lembrar do Trono Petrino</p>
+                <p class="product-price">R$ 64,90</p>
+                <button class="btn" onclick="window.location.href='products/Camiseta Petrus.html'">Ver Produto</button>
+                <button class="btn add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+
+        </div>
+    </main>
+
+    <footer id="footer" class="main-footer">
+        <div class="container">
+            <div class="footer-info">
+                <h4>FaithWear</h4>
+                <p>O seu estilo de vestir a fé.</p>
+                <p>&copy; 2025 FaithWear. Todos os direitos reservados.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Ajuda e Suporte</h4>
+                <ul>
+                    <li><a href="#">Política de Troca</a></li>
+                    <li><a href="#">Formas de Pagamento</a></li>
+                    <li><a href="#">Fale Conosco</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Siga-nos</h4>
+                <p>[Instagram] [Facebook] [WhatsApp]</p>
+            </div>
+        </div>
+    </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/auth.js"></script>
+
+</body>
+</html>
