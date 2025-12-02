@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Camiseta Cruzadas - FaithWear</title>
 
-    <link rel="stylesheet" href="../styles/home.css">
-    <link rel="stylesheet" href="../styles/product.css">
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/product.css">
 
     <!-- Carrinho local -->
-    <script src="../js/carrinho-local.js"></script>
+    <script src="js/carrinho-local.js"></script>
 </head>
 
 <body>
@@ -20,13 +20,13 @@
 
         <nav>
             <ul>
-                <li><a href="../home.html">Home</a></li>
-                <li><a href="../home.html">Produtos</a></li>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="home.html">Produtos</a></li>
             </ul>
         </nav>
 
         <div class="cart-icon">
-            <a id="cartLink" href="../cart.html">Carrinho (<span class="cart-count">0</span>)</a>
+            <a id="cartLink" href="cart.html">Carrinho</a>
         </div>
     </div>
 </header>
@@ -36,13 +36,23 @@
         <div class="product-main">
 
             <div class="product-image-container">
-                <img src="../images/Camiseta cruzadas.webp" alt="Camiseta Templários">
+                <img src="images/Camiseta cruzadas.webp" alt="Camiseta Templários">
             </div>
 
             <div class="product-info">
                 <h1>Camiseta Templários</h1>
 
-                <p>Inspirada nos cavaleiros Templários. Algodão premium, conforto e durabilidade.</p>
+                <p style="color: black;">Inspirada nos cavaleiros Templários. Algodão premium, conforto e durabilidade.</p>
+                <label for="selectTamanho" style="font-weight: bold; color: black;">Selecione o tamanho:</label>
+
+<select id="selectTamanho" 
+        style="padding: 8px; margin: 10px 0; border-radius: 8px; font-size: 16px;">
+    <option value="">Selecione...</option>
+    <option value="P">P</option>
+    <option value="M">M</option>
+    <option value="G">G</option>
+</select>
+
 
                 <div class="buy-box">
                     <div class="product-price">R$ 59,90</div>
@@ -88,32 +98,62 @@
 <!-- ================================================
      SCRIPT DO PRODUTO (CARRINHO LOCAL)
 ================================================ -->
+
 <script>
+/* ================================================
+   ADICIONAR AO CARRINHO
+================================================ */
+function adicionarAoCarrinho(produto) {
+    let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+    carrinho.push(produto);
+
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+}
+
+/* BOTÃO "Adicionar ao carrinho" */
 document.getElementById("addToCartBtn").addEventListener("click", () => {
+    const tamanho = document.getElementById("selectTamanho").value;
+
+    if (!tamanho) {
+        alert("Selecione um tamanho antes de adicionar ao carrinho.");
+        return;
+    }
 
     const produto = {
         id: "camiseta-templarios",
         nome: "Camiseta Templários",
+        tamanho: tamanho,
         preco: 59.90,
-        imagem: "../images/Camiseta cruzadas.webp"
+        imagem: "images/Camiseta cruzadas.webp"
     };
 
     adicionarAoCarrinho(produto);
+    alert("Produto adicionado ao carrinho!");
 });
 
+/* BOTÃO "Comprar Agora" */
 document.getElementById("buyNow").addEventListener("click", () => {
+    const tamanho = document.getElementById("selectTamanho").value;
+
+    if (!tamanho) {
+        alert("Selecione um tamanho para continuar.");
+        return;
+    }
+
     const produto = {
         id: "camiseta-templarios",
         nome: "Camiseta Templários",
+        tamanho: tamanho,
         preco: 59.90,
-        imagem: "../images/Camiseta cruzadas.webp"
+        imagem: "images/Camiseta cruzadas.webp"
     };
 
     adicionarAoCarrinho(produto);
-    window.location.href = "../cart.html";
+    window.location.href = "cart.html";
 });
-
-
+</script>
+<script>
 /* ------------------------------
    FORMATAÇÃO DO CEP
 ------------------------------ */
@@ -155,10 +195,5 @@ document.getElementById("freteBtn").addEventListener("click", () => {
 });
 
 </script>
-
-
-<!-- ⚠️ IMPORTANTE: auth.js NÃO DEVE SER CARREGADO AQUI -->
-<!-- <script src="../js/auth.js"></script>  ❌ REMOVIDO -->
-
 </body>
 </html>

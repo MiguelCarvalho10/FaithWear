@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnBuy) {
         btnBuy.addEventListener("click", () => {
             adicionarAoCarrinho(produto);
-            window.location.href = "../cart.html";
+            window.location.href = "cart.html";
         });
     }
 });

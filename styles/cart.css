@@ -2,6 +2,20 @@
 
 /* Paleta de Cores: Roxo (#6a1b9a), Laranja (#ff9800), Fundo Suave (#f4f4ff) */
 
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* garante que ocupe a tela inteira */
+}
+
+main {
+    flex: 1; /* empurra o footer para o fim */
+}
+
 .cart-page {
     padding-top: 40px;
     padding-bottom: 60px;
@@ -185,11 +199,88 @@
     background-color: #9d00e6;
 }
 
+.item-quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+}
+
+
+.qty-btn {
+    background: #222;
+    color: #fff;
+    font-size: 18px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.qty-btn:hover {
+    background: #444;
+}
+
+.qty-input {
+    width: 50px;
+    padding: 6px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #bbb;
+}
+
+.empty-cart {
+    text-align: center;
+    font-size: 22px;
+    padding: 40px 0;
+    color: #666;
+}
+
+
 .payment-info {
     font-size: 0.8em;
     color: #999;
     text-align: center;
     margin-top: 10px;
+}
+
+/* --- 4. Rodapé (Footer) --- */
+.main-footer {
+    background-color: #333;
+    color: #fff;
+    padding: 40px 0;
+    font-size: 0.9em;
+}
+
+.main-footer .container {
+    /* Padrão Mobile: Colunas empilhadas */
+    display: flex;
+    gap: 20px;
+    
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.main-footer {
+    background-color: #333;
+    color: #fff;
+    padding: 40px 0;
+    font-size: 0.9em;
+    margin-top: auto; /* opcional, ajuda em alguns casos */
 }
 
 /* ------------------------------------- */

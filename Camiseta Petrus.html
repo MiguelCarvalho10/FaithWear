@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camiseta Petrus - FaithWear</title>
+
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/product.css">
+
+    <!-- Carrinho local -->
+    <script src="js/carrinho-local.js"></script>
+</head>
+
+<body>
+
+<header class="main-header">
+    <div class="container">
+        <div class="logo">FaithWear</div>
+
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="home.html">Produtos</a></li>
+            </ul>
+        </nav>
+
+        <div class="cart-icon">
+            <a id="cartLink" href="cart.html">Carrinho</a>
+        </div>
+    </div>
+</header>
+
+<main class="container" style="margin-top:40px;">
+    <div class="product-section">
+        <div class="product-main">
+
+            <div class="product-image-container">
+                <img style="width: 100%;" src="images/Petrus Sanctus.jpg" alt="Camiseta Petrus">
+            </div>
+
+            <div class="product-info">
+                <h1>Camiseta Petrus</h1>
+
+                <p style="color: black;">Para lembrar do Trono Petrino</p>
+                <label for="selectTamanho" style=" font-weight: bold; color: black;">Selecione o tamanho:</label>
+
+<select id="selectTamanho" 
+        style="padding: 8px; margin: 10px 0; border-radius: 8px; font-size: 16px;">
+    <option value="">Selecione...</option>
+    <option value="P">P</option>
+    <option value="M">M</option>
+    <option value="G">G</option>
+</select>
+
+
+                <div class="buy-box">
+                    <div class="product-price">R$ 64,90</div>
+
+                    <button id="buyNow">Comprar agora</button>
+                    <button id="addToCartBtn" style="margin-top: 2%;">Adicionar ao carrinho</button>
+
+                    <div class="extra-info">
+                        <p>Calcule o frete:</p>
+
+                        <input 
+                            type="text" 
+                            id="cep" 
+                            placeholder="Digite seu CEP (#####-###)" 
+                            maxlength="9"
+                            style="padding:5px;width:30%;margin-top:5px;"
+                        >
+
+                        <button id="freteBtn" style="width: 30%; font-size: 20px;">
+                            Calcular frete
+                        </button>
+
+                        <p id="freteResultado" style="margin-top:10px; font-weight:bold;"></p>
+
+                        <p>Loja oficial: FaithWear</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<footer class="main-footer">
+    <div class="container">
+        <div>&copy; 2025 FaithWear.</div>
+    </div>
+</footer>
+
+
+
+<!-- ================================================
+     SCRIPT DO PRODUTO (CARRINHO LOCAL)
+================================================ -->
+
+<script>
+/* ================================================
+   ADICIONAR AO CARRINHO
+================================================ */
+function adicionarAoCarrinho(produto) {
+    let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+    carrinho.push(produto);
+
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+}
+
+/* BOTÃO "Adicionar ao carrinho" */
+document.getElementById("addToCartBtn").addEventListener("click", () => {
+    const tamanho = document.getElementById("selectTamanho").value;
+
+    if (!tamanho) {
+        alert("Selecione um tamanho antes de adicionar ao carrinho.");
+        return;
+    }
+
+    const produto = {
+        id: "camiseta-petrus",
+        nome: "Camiseta Petrus",
+        tamanho: tamanho,
+        preco: 64.90,
+        imagem: "images/Petrus Sanctus.jpg"
+    };
+
+    adicionarAoCarrinho(produto);
+    alert("Produto adicionado ao carrinho!");
+});
+
+/* BOTÃO "Comprar Agora" */
+document.getElementById("buyNow").addEventListener("click", () => {
+    const tamanho = document.getElementById("selectTamanho").value;
+
+    if (!tamanho) {
+        alert("Selecione um tamanho para continuar.");
+        return;
+    }
+
+    const produto = {
+        id: "camiseta-petrus",
+        nome: "Camiseta Petrus",
+        tamanho: tamanho,
+        preco: 64.90,
+        imagem: "images/Petrus Sanctus.jpg"
+    };
+
+    adicionarAoCarrinho(produto);
+    window.location.href = "cart.html";
+});
+</script>
+<script>
+/* ------------------------------
+   FORMATAÇÃO DO CEP
+------------------------------ */
+const cepInput = document.getElementById("cep");
+
+cepInput.addEventListener("input", () => {
+    cepInput.value = cepInput.value
+        .replace(/\D/g, "")
+        .replace(/(\d{5})(\d)/, "$1-$2")
+        .substring(0, 9);
+
+    if (cepInput.value === "14400-000") {
+        alert("CEP 14400-000 não é permitido nesta loja.");
+        cepInput.value = "";
+    }
+});
+
+
+/* ------------------------------
+   FRETE SIMPLES
+------------------------------ */
+document.getElementById("freteBtn").addEventListener("click", () => {
+    const cep = cepInput.value;
+    const freteResultado = document.getElementById("freteResultado");
+
+    if (!/^\d{5}-\d{3}$/.test(cep)) {
+        freteResultado.innerHTML = "⚠ Digite um CEP válido.";
+        return;
+    }
+
+    const prefixo = parseInt(cep.substring(0, 3));
+    let valor = "R$ 39,90";
+
+    if (prefixo <= 199) valor = "R$ 12,90";
+    else if (prefixo <= 399) valor = "R$ 19,90";
+    else if (prefixo <= 699) valor = "R$ 29,90";
+
+    freteResultado.innerHTML = `Frete: <strong>${valor}</strong>`;
+});
+
+</script>
+</body>
+</html>

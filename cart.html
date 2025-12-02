@@ -3,92 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrinho</title>
-    <link rel="stylesheet" href="../styles/cart.css"> <!-- Se não tiver CSS, pode remover -->
+    <title>FaithWear - Meu Carrinho</title>
 
+    <link rel="stylesheet" href="styles/cart.css">
+    <link rel="stylesheet" href="styles/home.css">
 </head>
+
 <body>
+    <header class="main-header">
+        <div class="container">
+            <h1 class="logo">FaithWear</h1>
 
-<div class="cart-container">
-    <h1>Seu Carrinho</h1>
+            <nav>
+                <ul>
+                    <li><a href="home.html">Início</a></li>
+                    <li><a href="home.html">Camisetas</a></li>
+                    <li><a href="#footer">Contato</a></li>
+                </ul>
+            </nav>
 
-    <div id="cart-items"></div>
+            <div class="cart-icon">Carrinho</div>
+        </div>
+    </header>
 
-    <div class="total" id="total-price">Total: R$ 0,00</div>
+    <main class="cart-page container">
+        <h2 id="cart-title">Meu Carrinho (0 Itens)</h2>
 
-    <div class="buttons">
-        <button class="clear" onclick="limparCarrinho()">Limpar Carrinho</button>
-        <button class="finish" onclick="finalizarCompra()">Finalizar Compra</button>
-    </div>
-</div>
+        <div class="cart-content-wrapper">
 
-<script>
-    // ----------- FUNÇÃO PARA BUSCAR O CARRINHO DO LOCALSTORAGE -----------
-    function getCarrinho() {
-        return JSON.parse(localStorage.getItem("carrinho")) || [];
-    }
+            <!-- Itens do carrinho -->
+            <section class="cart-items">
 
-    // ----------- SALVA ALTERAÇÕES NO LOCALSTORAGE -----------
-    function salvarCarrinho(carrinho) {
-        localStorage.setItem("carrinho", JSON.stringify(carrinho));
-    }
-
-    // ----------- RENDERIZA OS ITENS NO HTML -----------
-    function atualizarCarrinho() {
-        const carrinho = getCarrinho();
-        const container = document.getElementById("cart-items");
-        const totalElement = document.getElementById("total-price");
-
-        container.innerHTML = "";
-
-        let total = 0;
-
-        carrinho.forEach((item, index) => {
-            total += item.preco * item.quantidade;
-
-            container.innerHTML += `
-                <div class="cart-item">
-                    <img src="${item.imagem}" alt="${item.nome}">
-                    <div class="cart-info">
-                        <strong>${item.nome}</strong><br>
-                        Tamanho: ${item.tamanho}<br>
-                        Quantidade: ${item.quantidade}<br>
-                        Preço: R$ ${item.preco.toFixed(2)}
-                    </div>
-
-                    <div class="cart-actions">
-                        <button onclick="removerItem(${index})">Remover</button>
-                    </div>
+                <div class="continue-shopping">
+                    <a href="home.html" class="btn-secondary-cart">← Continuar Comprando</a>
                 </div>
-            `;
+            </section>
+
+             
+
+            <!-- Resumo do pedido -->
+            <aside class="cart-summary">
+    <h3>Resumo do Pedido</h3>
+
+    <!-- Label de subtotal agora tem id e mostrará a quantidade -->
+    <div class="summary-line">
+        <span id="subtotal-label">Subtotal (0 item):</span>
+        <span id="cart-subtotal">R$ 00,00</span>
+    </div>
+
+    <div class="summary-line">
+        <span>Frete:</span>
+        <span id="cart-frete" class="shipping-cost">R$ 00,00</span>
+    </div>
+
+    <div class="summary-line total-line">
+        <strong>Total:</strong>
+        <strong id="cart-total">R$ 00,00</strong>
+    </div>
+
+    <button class="btn-checkout">Finalizar Compra</button>
+
+    <p class="payment-info">Aceitamos: Visa, Master, Boleto e Pix.</p>
+</aside>
+
+
+        </div>
+    </main>
+
+    <footer id="footer" class="main-footer">
+        <div class="container">
+
+            <div class="footer-info">
+                <h4>FaithWear</h4>
+                <p>&copy; 2025 FaithWear.</p>
+            </div>
+
+        </div>
+    </footer>
+   <script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const cartItemsContainer = document.querySelector(".cart-items");
+    const cartTitle = document.getElementById("cart-title");
+    const subtotalLabel = document.getElementById("subtotal-label");
+    const subtotalElement = document.getElementById("cart-subtotal");
+    const freteElement = document.getElementById("cart-frete");
+    const totalElement = document.getElementById("cart-total");
+
+    function formatCurrency(value) {
+        return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    }
+
+    function createCartItem(produto, index) {
+        return `
+        <div class="cart-item">
+
+            <img src="${produto.imagem}" alt="${produto.nome}" class="item-image">
+
+            <div class="item-details">
+                <h4>${produto.nome}</h4>
+                <p class="item-size">Tamanho: <strong>${produto.tamanho}</strong></p>
+                <p class="item-price">R$ ${produto.preco.toFixed(2).replace(".", ",")}</p>
+            </div>
+
+            <div class="item-quantity">
+                <button class="qty-btn decrease" data-index="${index}">−</button>
+
+                <input type="number" class="qty-input" min="1" value="1" data-index="${index}">
+
+                <button class="qty-btn increase" data-index="${index}">+</button>
+            </div>
+
+            <div class="item-total">${formatCurrency(produto.preco)}</div>
+
+            <button class="remove-item" data-index="${index}">✕</button>
+        </div>`;
+    }
+
+    function renderCart() {
+        const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+        if (carrinho.length === 0) {
+            cartItemsContainer.innerHTML = `<p class="empty-cart">Carrinho vazio</p>`;
+            cartTitle.textContent = "Meu Carrinho (0 Itens)";
+            subtotalElement.textContent = "R$ 0,00";
+            freteElement.textContent = "R$ 0,00";
+            totalElement.textContent = "R$ 0,00";
+            return;
+        }
+
+        cartItemsContainer.innerHTML = "";
+
+        carrinho.forEach((produto, index) => {
+            cartItemsContainer.innerHTML += createCartItem(produto, index);
         });
 
-        totalElement.innerText = "Total: R$ " + total.toFixed(2);
+        updateCart();
     }
 
-    // ----------- REMOVE ITEM INDIVIDUAL -----------
-    function removerItem(index) {
-        const carrinho = getCarrinho();
-        carrinho.splice(index, 1);
-        salvarCarrinho(carrinho);
-        atualizarCarrinho();
+    function updateCart() {
+        const items = document.querySelectorAll(".cart-item");
+
+        let subtotal = 0;
+        let quantity = 0;
+
+        items.forEach(item => {
+            const price = parseFloat(
+                item.querySelector(".item-price").textContent.replace("R$", "").replace(",", ".")
+            );
+
+            const qtyInput = item.querySelector(".qty-input");
+            const qty = parseInt(qtyInput.value);
+            const itemTotal = price * qty;
+
+            item.querySelector(".item-total").textContent = formatCurrency(itemTotal);
+
+            subtotal += itemTotal;
+            quantity += qty;
+        });
+
+        cartTitle.textContent = `Meu Carrinho (${quantity} Item${quantity > 1 ? "s" : ""})`;
+        subtotalElement.textContent = formatCurrency(subtotal);
+
+        const frete = quantity > 0 ? 15 : 0;
+        freteElement.textContent = formatCurrency(frete);
+
+        totalElement.textContent = formatCurrency(subtotal + frete);
     }
 
-    // ----------- LIMPAR TUDO -----------
-    function limparCarrinho() {
-        localStorage.removeItem("carrinho");
-        atualizarCarrinho();
-    }
+    // Eventos globais
+    document.addEventListener("click", e => {
 
-    // ----------- FINALIZAR COMPRA -----------
-    function finalizarCompra() {
-        alert("Compra finalizada! (simulação)");
-        limparCarrinho();
-    }
+        if (e.target.classList.contains("decrease")) {
+            const input = document.querySelector(`.qty-input[data-index="${e.target.dataset.index}"]`);
+            if (input.value > 1) input.value--;
+            updateCart();
+        }
 
-    // ----------- RENDER INICIAL -----------
-    atualizarCarrinho();
+        if (e.target.classList.contains("increase")) {
+            const input = document.querySelector(`.qty-input[data-index="${e.target.dataset.index}"]`);
+            input.value++;
+            updateCart();
+        }
+
+        if (e.target.classList.contains("remove-item")) {
+            const index = e.target.dataset.index;
+            const carrinho = JSON.parse(localStorage.getItem("carrinho"));
+            carrinho.splice(index, 1);
+            localStorage.setItem("carrinho", JSON.stringify(carrinho));
+            renderCart();
+        }
+    });
+
+    document.addEventListener("change", e => {
+        if (e.target.classList.contains("qty-input")) {
+            if (e.target.value < 1) e.target.value = 1;
+            updateCart();
+        }
+    });
+
+    renderCart();
+});
 </script>
 
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+    const cartTitle = document.getElementById("cart-title"); // <h2 id="cart-title">...
+    const subtotalLabel = document.getElementById("subtotal-label");
+    const subtotalElement = document.getElementById("cart-subtotal");
+    const freteElement = document.getElementById("cart-frete");
+    const totalElement = document.getElementById("cart-total");
+
+    function formatCurrency(value) {
+        return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    }
+
+    function parsePrice(text) {
+        // Recebe "R$ 59,90" e retorna 59.90 (number)
+        if (!text) return 0;
+        return parseFloat(text.replace(/[R$\s\.]/g, "").replace(",", "."));
+    }
+
+    function pluralize(count, singular, plural) {
+        return `${count} ${count === 1 ? singular : plural}`;
+    }
+
+    function updateCart() {
+        const items = document.querySelectorAll(".cart-item");
+        let subtotal = 0;
+        let totalQuantity = 0;
+
+        items.forEach(item => {
+            const priceText = item.querySelector(".item-price").textContent || "";
+            const price = parsePrice(priceText);
+
+            const qtyInput = item.querySelector("input[type='number']");
+            const quantity = Math.max(1, parseInt(qtyInput.value || "1", 10));
+
+            const itemTotal = price * quantity;
+            const itemTotalEl = item.querySelector(".item-total");
+            if (itemTotalEl) itemTotalEl.textContent = formatCurrency(itemTotal);
+
+            subtotal += itemTotal;
+            totalQuantity += quantity;
+        });
+
+        // Atualiza título do carrinho (h2)
+        if (cartTitle) {
+            cartTitle.textContent = `Meu Carrinho (${totalQuantity} ${totalQuantity === 1 ? "Item" : "Itens"})`;
+        }
+
+        // Atualiza label do subtotal com quantidade
+        if (subtotalLabel) {
+            subtotalLabel.textContent = `Subtotal (${pluralize(totalQuantity, "item", "itens")}):`;
+            // Observação: mantive "item/itens" em lowercase para combinar com seu layout; se quiser "Item/Itens" basta trocar.
+        }
+
+        // Atualiza valores monetários
+        if (subtotalElement) subtotalElement.textContent = formatCurrency(subtotal);
+
+        // Frete fixo (exemplo). Se preferir lógica diferente, podemos alterar aqui.
+        const frete = totalQuantity > 0 ? 15 : 0;
+        if (freteElement) freteElement.textContent = formatCurrency(frete);
+
+        if (totalElement) totalElement.textContent = formatCurrency(subtotal + frete);
+    }
+
+    // Eventos: mudança de quantidade
+    document.addEventListener("change", (e) => {
+        if (e.target && e.target.matches("input[type='number']")) {
+            // protege contra valores inválidos
+            if (e.target.value === "" || parseInt(e.target.value, 10) < 1) {
+                e.target.value = 1;
+            }
+            updateCart();
+        }
+    });
+
+    // Eventos: remover item
+    document.addEventListener("click", (e) => {
+        if (e.target && e.target.matches(".remove-item")) {
+            const item = e.target.closest(".cart-item");
+            if (item) item.remove();
+            updateCart();
+        }
+    });
+
+    // Se você adicionar dinamicamente itens via script, chame updateCart() após a adição.
+    updateCart();
+});
+</script>
 </body>
 </html>
